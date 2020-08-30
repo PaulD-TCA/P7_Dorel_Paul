@@ -22,7 +22,7 @@ class Parser:
         """
         user_question = u_quest
         question_lower_case = user_question.lower()
-        question_splited = re.split("[?,!': -]", question_lower_case)
+        question_splited = re.split("[?,'`.!': \"-]", question_lower_case)
         word_keeped = []
         for word in question_splited:
             if word not in basestopword.STOP_WORDS:
