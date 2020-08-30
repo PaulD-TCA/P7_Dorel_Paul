@@ -19,14 +19,19 @@ class Wikisummary:
         """
         try:
             api_url = 'http://fr.wikipedia.org/w/api.php'
-            search_params = {'action': 'query', 'prop': 'extracts', 'format': 'json', 'indexpageids': 1, 'exsentences':1, "generator": 'search', 'gsrlimit':1, 'gsrsearch': words_keeped}
+            search_params = {'action': 'query',
+                             'prop': 'extracts',
+                             'format': 'json',
+                             'indexpageids': 1,
+                             'exsentences':1,
+                             'generator':'search',
+                             'gsrlimit':1,
+                             'gsrsearch': words_keeped}
             resp = requests.get(api_url, search_params)
             wiki_data = resp.json()
             wiki_pageids = wiki_data["query"]["pageids"][0]
             wiki_sentance = wiki_data["query"]["pages"][wiki_pageids]["extract"]
             topicwikipedia = re.sub('<[^<]+?>', '', wiki_sentance)
-            print(topicwikipedia)
             return topicwikipedia
         except:
-            return """Ho je ne comprend pas ce que tu me dis. Pose moi une autre
-            question!"""
+            return """Ho je ne comprend pas ce que tu me dis!"""
