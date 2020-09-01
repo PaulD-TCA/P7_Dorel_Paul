@@ -22,9 +22,10 @@ class Position:
             resp = requests.get(api_url, search_params)
             geocode_result = resp.json()
 
-            adress = geocode_result["results"][0]["formatted_address"]
+            raw_adress = geocode_result["results"][0]["formatted_address"]
+            adress = "Je me rapelle que cela se trouve à l'adresse suivante: " + raw_adress + ". "
             latlong = geocode_result["results"][0]["geometry"]["location"]
 
             return adress, latlong
         except:
-            return "Je ne me rapelle pas où cela ce trouve.", {"lat": 0, "lng": 0}
+            return " ", {"lat": 0, "lng": 0}
