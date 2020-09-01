@@ -1,3 +1,4 @@
+// main function with AJAX
 $(document).ready(function(){
     $("#myForm").submit(function(event){
         event.preventDefault();
@@ -12,7 +13,7 @@ $(document).ready(function(){
                 createUserConversation(form);
                 let grandPyAnswer = newAnswer[1];
                 let adress = newAnswer[2][0];
-                createGrandPyConversation(grandPyAnswer);
+                createGrandPyConversation(adress, grandPyAnswer);
                 countMap++;
                 let mapNumber = "map"+ countMap
                 let mapLat = newAnswer[2][1]["lat"];
@@ -21,7 +22,8 @@ $(document).ready(function(){
                 createGrandPyMap(mapNumber);
                 initMap(mapNumber, mapCoord);
             let contentHtml = '<div class="form-group mt-3">'+
-              '<input id="userInput" type="text" name="userText" size="50" class="text-center" placeholder="Pose ta question ici à GrandPy."/>'+
+              '<input id="userInput" type="text" name="userText" size="50"'+
+              'class="text-center" placeholder="Pose ta question ici à GrandPy."/>'+
               '<button class="btn btn-primary" type="submit" >Demander</button>'+
             '</div>';
             console.log(contentHtml)
@@ -33,6 +35,7 @@ $(document).ready(function(){
 
 let countMap = 0;
 
+// create an historic with each user new sentance
 function createUserConversation(form){
   let conversation = document.getElementById("convDisplay");
 
@@ -50,7 +53,8 @@ function createUserConversation(form){
   newPUser.innerHTML = form;
 };
 
-function createGrandPyConversation(grandPyAnswer){
+// create an historic with each Grand py new answer
+function createGrandPyConversation(adress, grandPyAnswer){
   let conversation = document.getElementById("convDisplay");
 
   let newRowGPy = document.createElement("div");
@@ -64,9 +68,10 @@ function createGrandPyConversation(grandPyAnswer){
   let newPGPy = document.createElement("p");
   newPGPy.classList.add("text");
   newColGPy.appendChild(newPGPy);
-  newPGPy.innerHTML = grandPyAnswer;
+  newPGPy.innerHTML = adress + grandPyAnswer;
 };
 
+// display a new map for each new place given by GrandPy
 function createGrandPyMap(mapNumber){
   let conversation = document.getElementById("convDisplay");
 
@@ -80,6 +85,7 @@ function createGrandPyMap(mapNumber){
   newColMap.innerHTML = '<div id="'+mapNumber+'"></div><br>'
 };
 
+// display a new map liked to gmap API
 function initMap(mapNumber, mapCoord) {
   let map = new google.maps.Map(
       document.getElementById(mapNumber), {zoom: 12, center: mapCoord});
