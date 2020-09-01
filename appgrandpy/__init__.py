@@ -1,3 +1,7 @@
+#! /usr/bin/env python3
+# coding: utf-8
+
+
 from flask import Flask, render_template, request, url_for
 from flask import jsonify
 from appgrandpy.modules import basestopword
@@ -11,8 +15,9 @@ def homepage():
 
 @app.route("/api/info/", methods=['POST'])
 def route():
-    u_quest = request.data
-    u_quest = str(u_quest)
+    user_quest = request.data
+    question_decode = user_quest.decode('utf-8')
+    u_quest = str(question_decode)
     maininstance = mainscript.main_py_script()
     maininstance.main(u_quest)
     w_keeped = maininstance.words_keeped
