@@ -34,4 +34,4 @@ class Wikisummary:
             topicwikipedia = re.sub('<[^<]+?>', '', wiki_sentance)
             return topicwikipedia
         except:
-            return """Ho je ne comprend pas ce que tu me dis!"""
+            return """Ho je ne comprend pas ce que tu me dis! Pose moi une autre question!"""
